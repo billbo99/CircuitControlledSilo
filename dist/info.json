@@ -1,13 +1,15 @@
 {
     "name": "CircuitControlledSilo",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "title": "Circuit Controlled Silo",
     "author": "billbo99",
     "contact": "",
     "homepage": "https://mods.factorio.com/mod/CircuitControlledSilo",
     "factorio_version": "1.0",
     "dependencies": [
-        "base"
+        "base",
+        "?DeadlockStackingForVanilla",
+        "?deadlock_stacked_recipes"
     ],
     "description": "Allows a circuit signal to control when a rocket is launched"
 }

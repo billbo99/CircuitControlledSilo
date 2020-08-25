@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2020-08-25
+  Changes:
+    - Roll to v1.0.0 to match game
+    - If both DeadlockStackingForVanilla & deadlock_stacked_recipes installed add a RED silo for sending stacked rockets using control logic as per Blue silo.
+    - For Red silo only stacked payloads will give a result :-
+      - Stacked satellites will give stacked science packs
+      - Stacked stacked science packs will give stacked fish
+---------------------------------------------------------------------------------------------------
 Version: 0.0.1
 Date: 23-Aug-2020
   Features:

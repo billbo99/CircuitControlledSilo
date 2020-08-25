@@ -21,8 +21,14 @@ blue_silo.minable.result = blue_silo.name
 apply_colours(blue_silo, path, "blue")
 data:extend({blue_silo})
 
--- local red_silo = table.deepcopy(data.raw["rocket-silo"]["rocket-silo"])
--- red_silo.name = "smart-rocket-silo-red"
--- red_silo.minable.result = red_silo.name
--- apply_colours(red_silo, path, "red")
--- data:extend({red_silo})
+local red_rocket = table.deepcopy(data.raw["rocket-silo-rocket"]["rocket-silo-rocket"])
+red_rocket.name = "rocket-silo-rocket-red"
+red_rocket.rocket_sprite.filename = string.format("%s/02-rocket-%s.png", path, "red")
+red_rocket.rocket_sprite.hr_version.filename = string.format("%s/hr-02-rocket-%s.png", path, "red")
+
+local red_silo = table.deepcopy(data.raw["rocket-silo"]["rocket-silo"])
+red_silo.name = "smart-rocket-silo-red"
+red_silo.minable.result = red_silo.name
+red_silo.rocket_entity = "rocket-silo-rocket-red"
+apply_colours(red_silo, path, "red")
+data:extend({red_rocket, red_silo})

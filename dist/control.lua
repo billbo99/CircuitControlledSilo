@@ -58,6 +58,21 @@ local function check_silo_control_combinator()
     end
 end
 
+local function rocket_launched(e)
+    local rewards = {}
+    rewards["deadlock-stack-satellite"] = {name = "deadlock-stack-space-science-pack", count = 1000}
+    rewards["deadlock-stack-space-science-pack"] = {name = "deadlock-stack-raw-fish", count = 1}
+
+    if e.rocket.name == "rocket-silo-rocket-red" and e.rocket.get_inventory(defines.inventory.rocket) then
+        local inv = e.rocket.get_inventory(defines.inventory.rocket).get_contents()
+        for item, count in pairs(inv) do
+            if rewards[item] then
+                e.rocket_silo.get_output_inventory().insert({name = rewards[item].name, count = rewards[item].count * count})
+            end
+        end
+    end
+end
+
 local function rocket_silo_removed(event)
     local e = event.created_entity or event.entity or event.destination or nil
     if e and e.valid then
@@ -126,7 +141,7 @@ script.on_load(
 )
 
 script.on_configuration_changed(
-    function(e)
+    function()
         -- e.mod_changes
         -- e.mod_startup_settings_changed
         -- e.migration_applied
@@ -152,3 +167,4 @@ script.on_event(defines.events.script_raised_destroy, rocket_silo_removed, {{fil
 script.on_event(defines.events.on_chunk_deleted, find_rocket_silos)
 script.on_event(defines.events.on_surface_cleared, find_rocket_silos)
 script.on_event(defines.events.on_surface_deleted, find_rocket_silos)
+script.on_event(defines.events.on_rocket_launched, rocket_launched)
