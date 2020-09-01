@@ -76,7 +76,7 @@ end
 local function rocket_silo_removed(event)
     local e = event.created_entity or event.entity or event.destination or nil
     if e and e.valid then
-        if global.silos[e.unit_number].combinator and global.silos[e.unit_number].combinator.valid then
+        if global.silos[e.unit_number] and global.silos[e.unit_number].combinator and global.silos[e.unit_number].combinator.valid then
             global.silos[e.unit_number].combinator.destroy()
         end
         global.silos[e.unit_number] = nil
