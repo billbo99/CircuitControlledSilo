@@ -25,32 +25,35 @@ local function check_silo_control_combinator()
     for _, record in pairs(global.silos) do
         local combinator = record.combinator
         local silo = record.silo
-        local signals = combinator.get_merged_signals() or {}
-        local cb = combinator.get_or_create_control_behavior()
 
-        for _, row in pairs(cb.parameters.parameters) do
-            cb.set_signal(row.index, nil)
-        end
+        if silo.valid and combinator.valid then
+            local signals = combinator.get_merged_signals() or {}
+            local cb = combinator.get_or_create_control_behavior()
 
-        if silo.rocket_parts and silo.rocket_parts > 0 then
-            cb.set_signal(find_free_slot_cb(cb, "rocket-part"), {signal = {type = "item", name = "rocket-part"}, count = silo.rocket_parts})
-        end
-
-        if silo.get_inventory(defines.inventory.rocket_silo_rocket) then
-            local inv = silo.get_inventory(defines.inventory.rocket_silo_rocket)
-            local content = inv.get_contents()
-            for name, count in pairs(content) do
-                cb.set_signal(find_free_slot_cb(cb, name), {signal = {type = "item", name = name}, count = count})
+            for _, row in pairs(cb.parameters.parameters) do
+                cb.set_signal(row.index, nil)
             end
-        end
 
-        if signals then
-            for _, cell in pairs(signals) do
-                if cell.signal and cell.signal.type == "virtual" and cell.signal.name == "CCS_Rocket_Launch" then
-                    if cell.count > 0 then
-                        silo.auto_launch = true
-                    elseif cell.count < 1 then
-                        silo.auto_launch = false
+            if silo.rocket_parts and silo.rocket_parts > 0 then
+                cb.set_signal(find_free_slot_cb(cb, "rocket-part"), {signal = {type = "item", name = "rocket-part"}, count = silo.rocket_parts})
+            end
+
+            if silo.get_inventory(defines.inventory.rocket_silo_rocket) then
+                local inv = silo.get_inventory(defines.inventory.rocket_silo_rocket)
+                local content = inv.get_contents()
+                for name, count in pairs(content) do
+                    cb.set_signal(find_free_slot_cb(cb, name), {signal = {type = "item", name = name}, count = count})
+                end
+            end
+
+            if signals then
+                for _, cell in pairs(signals) do
+                    if cell.signal and cell.signal.type == "virtual" and cell.signal.name == "CCS_Rocket_Launch" then
+                        if cell.count > 0 then
+                            silo.auto_launch = true
+                        elseif cell.count < 1 then
+                            silo.auto_launch = false
+                        end
                     end
                 end
             end
