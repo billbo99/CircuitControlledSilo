@@ -71,6 +71,9 @@ local function rocket_launched(e)
         for item, count in pairs(inv) do
             if rewards[item] then
                 e.rocket_silo.get_output_inventory().insert({name = rewards[item].name, count = rewards[item].count * count})
+                local force = e.rocket.force
+                force.item_production_statistics.on_flow(rewards[item].name, (rewards[item].count * count))
+                game.print(force.item_production_statistics.get_input_count(rewards[item].name))
             end
         end
     end

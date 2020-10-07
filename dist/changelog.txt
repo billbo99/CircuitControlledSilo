@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2020-10-07
+  Bugfixes:
+    - Locale updated
+  Changes:
+    - Items rewarded from sending stacked satellites show up on production statistics
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 2020-09-11
   Bugfixes:
