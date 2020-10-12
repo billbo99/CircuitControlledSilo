@@ -97,6 +97,7 @@ local function rocket_silo_built(event)
             local combinator = e.surface.create_entity {name = "silo-control-combinator", direction = defines.direction.south, position = {(e.position.x) + 3.5, (e.position.y) + 3.5}, force = e.force}
             global.silos[e.unit_number] = {silo = e, combinator = combinator}
             combinator.destructible = false
+            combinator.minable = false
         end
     else
         log(event)
